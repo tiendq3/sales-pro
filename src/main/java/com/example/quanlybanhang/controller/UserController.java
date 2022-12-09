@@ -1,7 +1,7 @@
 package com.example.quanlybanhang.controller;
 
 import com.example.quanlybanhang.entity.User;
-import com.example.quanlybanhang.exceptionhandler.AppException;
+import com.example.quanlybanhang.exceptionhandler.NotFoundException;
 import com.example.quanlybanhang.model.UserModel;
 import com.example.quanlybanhang.service.UserSevice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/api")
 public class UserController {
     @Autowired
     private UserSevice userSevice;
@@ -24,21 +23,21 @@ public class UserController {
         return ResponseEntity.ok().body("login false!");
     }
 
-    @GetMapping
+    @GetMapping(value = "/users")
     public ResponseEntity getAllUser() {
         userSevice.getAllUser();
         return ResponseEntity.ok().body(userSevice.getAllUser());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("users/{id}")
     public ResponseEntity getUserById(@RequestParam("id") Long id) {
 //        if (userSevice.getUserById(id) == null) return ResponseEntity.ok().body("khong ton tai tai khoan");
-        if (userSevice.getUserById(id) == null) throw new AppException(10100, "Đối tượng không tồn tại");
+        if (userSevice.getUserById(id) == null) throw new NotFoundException("Not found user");
         return ResponseEntity.ok().body(userSevice.getUserById(id));
     }
 
     @RequestMapping(
-            path = "/create",
+            path = "/users",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = {
@@ -52,7 +51,7 @@ public class UserController {
     }
 
     @RequestMapping(
-            value = "/delete",
+            value = "/users/{id}",
             method = RequestMethod.DELETE)
     public ResponseEntity deleteUser(@RequestParam("id") Long id) {
         UserModel userNeedDel = userSevice.getUserById(id);
@@ -62,7 +61,7 @@ public class UserController {
     }
 
     @RequestMapping(
-            path = "/update",
+            path = "/users/{id}",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = {

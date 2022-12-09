@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/category")
+@RequestMapping("api")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/categories",method = RequestMethod.GET)
     public List<Category> getAllCategory(){
         return categoryService.getAllCategory();
     }
 
     @RequestMapping(
-            value = "/create",
+            value = "/categories",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createCategory(@RequestBody CategoryModel categoryModel){
+    public ResponseEntity createCategory(@RequestBody() CategoryModel categoryModel){
         categoryService.createCategory(categoryModel);
         return ResponseEntity.ok().body("them thanh cong");
     }

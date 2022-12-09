@@ -22,7 +22,7 @@ public class User {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @NotEmpty(message = "Thiếu username")
+    @NotEmpty(message = "Thiếu password")
     private String password;
     private String last_name;
     private String first_name;

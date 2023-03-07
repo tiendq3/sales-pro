@@ -1,23 +1,27 @@
-package com.example.quanlybanhang.service;
+package com.example.quanlybanhang.service.Impl;
 
-import com.example.quanlybanhang.entity.User;
-import com.example.quanlybanhang.model.UserModel;
+import com.example.quanlybanhang.exception.NotFoundException;
+import com.example.quanlybanhang.exception.ValidUserNameEx;
+import com.example.quanlybanhang.model.dto.UserDTO;
+import com.example.quanlybanhang.model.entity.User;
 import com.example.quanlybanhang.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class UserSevice {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public boolean login(String username, String password) {
         List<User> users = userRepository.findAll();
@@ -29,37 +33,39 @@ public class UserSevice {
     }
 
     // admin get all user(da map thanh usermodel)
-    public List<UserModel> getAllUserModel() {
-        List<UserModel> userModels = userRepository.findAll()
+    public List<UserDTO> getAllUserModel() {
+        List<UserDTO> userDTOS = userRepository.findAll()
                 .stream()
-                .map(user -> modelMapper.map(user, UserModel.class))
+                .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
-        return userModels;
+        return userDTOS;
     }
 
     // admin get all user(User entity)
-    public List<User> getAllUser() {
-        List<User> users = userRepository.findAll();
+    // pageable
+    public List<User> getAllUser(int page, int size) {
+        Pageable paging = PageRequest.of(page, size);
+        List<User> users = userRepository.findAll(paging).getContent();
         return users;
     }
 
 
-    public UserModel getUserById(Long id) {
+    public UserDTO getUserById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.equals(Optional.empty())) return null;
-        else {
+        if (optionalUser.equals(Optional.empty())) {
+            throw new NotFoundException("khong ton tai user");
+        } else {
             User user = userRepository.findById(id).get();
-            UserModel userModel = modelMapper.map(user, UserModel.class);
-            return userModel;
+            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+            return userDTO;
         }
     }
 
-    public boolean createUser(User user) {
-        for (User user1 : getAllUser()) {
-            if (user1.getUsername().equals(user.getUsername())) return false;
+    public void createUser(User user) {
+        if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))) {
+            throw new ValidUserNameEx("username da ton tai hoac sai dinh dang");
         }
         userRepository.save(user);
-        return true;
     }
 
     public boolean deleteUser(Long id) {
@@ -71,14 +77,13 @@ public class UserSevice {
         }
     }
 
+    @Transactional
     public boolean updateUser(Long id, User user) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.equals(Optional.empty())) return false;
         else {
             User user1 = optionalUser.get();
             user1.setPassword(user.getPassword());
-            user1.setLast_name(user.getLast_name());
-            user1.setFirst_name(user.getFirst_name());
             user1.setGender(user.getGender());
             user1.setEmail(user.getEmail());
             user1.setAvatar(user.getAvatar());

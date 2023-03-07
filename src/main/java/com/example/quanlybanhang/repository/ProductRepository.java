@@ -1,7 +1,6 @@
 package com.example.quanlybanhang.repository;
 
-import com.example.quanlybanhang.entity.Product;
-import com.example.quanlybanhang.model.ProductModel;
+import com.example.quanlybanhang.model.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

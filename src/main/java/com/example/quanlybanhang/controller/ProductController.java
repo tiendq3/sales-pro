@@ -1,13 +1,12 @@
 package com.example.quanlybanhang.controller;
 
-import com.example.quanlybanhang.entity.Product;
-import com.example.quanlybanhang.exceptionhandler.NotFoundException;
-import com.example.quanlybanhang.model.ProductModel;
-import com.example.quanlybanhang.service.ProductService;
+import com.example.quanlybanhang.model.entity.Product;
+import com.example.quanlybanhang.exception.NotFoundException;
+import com.example.quanlybanhang.model.dto.ProductDTO;
+import com.example.quanlybanhang.service.Impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<ProductModel> getAllProductByUser() {
+    public List<ProductDTO> getAllProductByUser() {
         return productService.getAllProductByUser();
     }
 
@@ -72,5 +71,4 @@ public class ProductController {
         productService.deleteProductById(id);
         return ResponseEntity.ok().body(product);
     }
-
 }

@@ -1,8 +1,8 @@
 package com.example.quanlybanhang.controller;
 
-import com.example.quanlybanhang.entity.Category;
-import com.example.quanlybanhang.model.CategoryModel;
-import com.example.quanlybanhang.service.CategoryService;
+import com.example.quanlybanhang.model.entity.Category;
+import com.example.quanlybanhang.model.dto.CategoryDTO;
+import com.example.quanlybanhang.service.Impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +28,8 @@ public class CategoryController {
             value = "/categories",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createCategory(@RequestBody() CategoryModel categoryModel){
-        categoryService.createCategory(categoryModel);
+    public ResponseEntity createCategory(@RequestBody() CategoryDTO categoryDTO){
+        categoryService.createCategory(categoryDTO);
         return ResponseEntity.ok().body("them thanh cong");
     }
 }

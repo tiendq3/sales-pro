@@ -1,39 +1,38 @@
-package com.example.quanlybanhang.service;
+package com.example.quanlybanhang.service.Impl;
 
-import com.example.quanlybanhang.entity.Product;
-import com.example.quanlybanhang.model.ProductModel;
+import com.example.quanlybanhang.model.dto.ProductDTO;
+import com.example.quanlybanhang.model.entity.Product;
 import com.example.quanlybanhang.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sound.sampled.Port;
-import java.security.PublicKey;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ProductService {
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+
+    private final ProductRepository productRepository;
+
+    private final ModelMapper modelMapper;
 
     public List<Product> getAllProductByAdmin() {
         return productRepository.findAll();
     }
 
-    public List<ProductModel> getAllProductByUser() {
-        List<ProductModel> productModels = productRepository
+    public List<ProductDTO> getAllProductByUser() {
+        List<ProductDTO> productDTOS = productRepository
                 .findAll()
                 .stream()
-                .map(product -> modelMapper.map(product, ProductModel.class))
+                .map(product -> modelMapper.map(product, ProductDTO.class))
                 .collect(Collectors.toList());
-        for (int i = 0; i < productModels.size(); i++) {
-            productModels.get(i).setCategory_name(getAllProductByAdmin().get(i).getCategory().getName());
+        for (int i = 0; i < productDTOS.size(); i++) {
+            productDTOS.get(i).setCategoryName(getAllProductByAdmin().get(i).getCategory().getName());
         }
-        return productModels;
+        return productDTOS;
     }
 
     public Product getProductById(Long id) {
@@ -70,8 +69,8 @@ public class ProductService {
         if (product1 == null) return false;
         product1.setName(product.getName());
         product1.setDescription(product.getDescription());
-        product1.setUpdated_at(product.getUpdated_at());
-        product1.setCreated_at(product.getCreated_at());
+        product1.setUpdatedAt(product.getUpdatedAt());
+        product1.setCreatedAt(product.getCreatedAt());
         product1.setCategory(product.getCategory());
         productRepository.save(product1);
         return true;

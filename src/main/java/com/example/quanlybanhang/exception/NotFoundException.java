@@ -1,4 +1,4 @@
-package com.example.quanlybanhang.exceptionhandler;
+package com.example.quanlybanhang.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

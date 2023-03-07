@@ -1,31 +1,31 @@
-//package com.example.quanlybanhang.security;
-//
-//import com.example.quanlybanhang.repository.UserRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//
-//@Service
-//public class CustomUserDetailService implements UserDetailsService {
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        List<com.example.quanlybanhang.entity.User> users = userRepository.findAll();
-//        for (com.example.quanlybanhang.entity.User user : users) {
-//            if (username.equals(user.getUsername())) {
-//                String password = new BCryptPasswordEncoder().encode(user.getPassword());
-//                return User.withUsername(username).password(password).roles("admin").build();
-//            }
-//
-//        }
-//        throw new UsernameNotFoundException(username + " does not exist");
-//    }
-//}
+package com.example.quanlybanhang.security;
+
+import com.example.quanlybanhang.model.entity.Role;
+import com.example.quanlybanhang.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@AllArgsConstructor
+public class CustomUserDetailService implements UserDetailsService {
+    private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        com.example.quanlybanhang.model.entity.User user = userRepository.findUserByUsername(username);
+        if (user == null) throw new UsernameNotFoundException(username + " does not exist");
+
+        List<String> roles = user.getRoles().stream().map(Role::getName).toList();
+        return User
+                .withUsername(user.getPhone())
+                .password(user.getPassword())
+                .roles(roles.toArray(new String[0]))
+                .build();
+    }
+}

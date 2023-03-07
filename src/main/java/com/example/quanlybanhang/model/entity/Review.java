@@ -1,19 +1,25 @@
-package com.example.quanlybanhang.entity;
+package com.example.quanlybanhang.model.entity;
 
-import jdk.jfr.Enabled;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
 @Table(name = "reviews")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Review {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int rating;
+
     private String comment;
+
+    private Integer rating;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -1,11 +1,12 @@
 package com.example.quanlybanhang.model.entity;
 
+import com.example.quanlybanhang.model.enums.EFileType;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "products")
+@Table(name = "files")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,9 +22,11 @@ public class File {
 
     private String path;
 
-    private String type;
+    private EFileType type;
 
     private String ext;
 
     private Double size;
+
+    private byte[] data;
 }

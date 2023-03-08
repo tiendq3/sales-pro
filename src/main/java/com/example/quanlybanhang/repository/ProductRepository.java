@@ -1,20 +1,16 @@
 package com.example.quanlybanhang.repository;
 
 import com.example.quanlybanhang.model.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query(value = "SELECT * FROM products p WHERE p.name like %:name1%  ", nativeQuery = true)
-    List<Product> getProductByName(@Param("name1") String name1);
-
-    @Query(
-            value = "select  * from products p join categories c on p.category_id = c.id where c.name like %:name%",
+    @Query(value = "SELECT * FROM products WHERE (:key IS NULL OR name LIKE CONCAT('%', :key, '%')) ",
             nativeQuery = true)
-    List<Product> getProductByCategory(@Param("name") String name);
+    Page<Product> searchBy(@Param("key") String key, Pageable pageable);
 }

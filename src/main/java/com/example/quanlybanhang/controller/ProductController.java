@@ -1,74 +1,66 @@
 package com.example.quanlybanhang.controller;
 
-import com.example.quanlybanhang.model.entity.Product;
-import com.example.quanlybanhang.exception.NotFoundException;
 import com.example.quanlybanhang.model.dto.ProductDTO;
-import com.example.quanlybanhang.service.Impl.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import com.example.quanlybanhang.service.Impl.ProductServiceImpl;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api/v1")
+@AllArgsConstructor
+@Slf4j
 public class ProductController {
-    @Autowired
-    private ProductService productService;
+    private final ProductServiceImpl productServiceImpl;
 
-    @GetMapping("/products/admin")
-    public List<Product> getAllProductByAdmin() {
-        return productService.getAllProductByAdmin();
+    @GetMapping("/products/search")
+    public ResponseEntity<Page<ProductDTO>> search(@RequestParam(required = false) String key,
+                                                   @RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "5") int size,
+                                                   @RequestParam(defaultValue = "name") String[] properties,
+                                                   @RequestParam(defaultValue = "ASC") Sort.Direction sort) {
+        log.info("SEARCH");
+        return ResponseEntity.ok(productServiceImpl.search(key, page, size, properties, sort));
     }
 
     @GetMapping("/products")
-    public List<ProductDTO> getAllProductByUser() {
-        return productService.getAllProductByUser();
+    public ResponseEntity<Page<ProductDTO>> getAll(@RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "5") int size,
+                                                   @RequestParam(defaultValue = "name") String[] properties,
+                                                   @RequestParam(defaultValue = "ASC") Sort.Direction sort) {
+        log.info("GET ALL PRODUCT REQUEST");
+        return ResponseEntity.ok(productServiceImpl.search(null, page, size, properties, sort));
     }
 
-    @RequestMapping(value = {"/products/{id}"}, method = RequestMethod.GET)
-    public ResponseEntity<String> getProductById(@RequestParam("id") Long id) {
-//        if (productService.getProductById(id) == null) return ResponseEntity.ok().body("khong ton tai sp");
-        if (productService.getProductById(id) == null) throw new NotFoundException("Not found product");
-        return ResponseEntity.ok().body(productService.getProductById(id).toString());
+    @GetMapping("/products/{id}")
+    public ResponseEntity<ProductDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(productServiceImpl.getProductById(id));
     }
 
-    @RequestMapping(value = {"/products/name"}, method = RequestMethod.GET)
-    public ResponseEntity getProductByName(@RequestParam("name") String name){
-        return ResponseEntity.ok().body(productService.getProductByName(name));
+    @PostMapping("/management/products")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void insertProduct(@RequestBody @Valid ProductDTO productDTO) {
+        log.info("INSERT NEW PRODUCT " + productDTO);
+        productServiceImpl.insertProduct(productDTO);
     }
 
-    @RequestMapping(value = "/products/category",method = RequestMethod.GET)
-    public ResponseEntity getProductByCategory(@RequestParam("nameCategory") String nameCategory){
-        return ResponseEntity.ok().body(productService.getProductByCategory(nameCategory));
-    }
-    @RequestMapping(
-            value = "/products",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createProduct(@RequestBody Product product) {
-        if (!productService.createProduct(product)) return ResponseEntity.ok().body("da ton tai sp");
-        return ResponseEntity.ok().body(product.toString());
+
+    @PutMapping("management/products/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+        log.info("UPDATE PRODUCT " + productDTO);
+        productServiceImpl.updateProduct(id, productDTO);
     }
 
-    @RequestMapping(
-            value = "/products/{id}",
-            method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity updateProduct(@RequestParam("id") Long id, @RequestBody Product product) {
-        if (!productService.updateProduct(id, product)) return ResponseEntity.ok().body("khong ton tai sp");
-        return ResponseEntity.ok().body(product);
-    }
-
-    @RequestMapping(
-            value = "/products/{id}",
-            method = RequestMethod.DELETE)
-    public ResponseEntity deleteProduct(@PathVariable Long id) {
-        Product product = productService.getProductById(id);
-        if (product == null) return ResponseEntity.ok().body("khong ton tai sp");
-        productService.deleteProductById(id);
-        return ResponseEntity.ok().body(product);
+    @DeleteMapping("/management/products")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@RequestParam Long[] ids) {
+        productServiceImpl.deleteProduct(ids);
     }
 }

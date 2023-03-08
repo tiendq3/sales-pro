@@ -3,7 +3,7 @@ package com.example.quanlybanhang.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,13 +24,24 @@ public class Product {
 
     private String description;
 
-    @ManyToOne
-    private Category category;
+    private Double price;
 
-    private Timestamp createdAt;
+    private Double finalPrice;
+
+    private Double rate;
+
+    private Boolean available;
+
+    private Instant createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @ManyToMany
+    private Set<File> files;
+
+    @ManyToOne
+    private Category category;
 
     @ManyToOne
     private Supplier supplier;

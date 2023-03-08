@@ -1,11 +1,11 @@
-package com.example.quanlybanhang.service.Impl;
+package com.example.quanlybanhang.service.other;
 
-import com.example.quanlybanhang.exception.NotFoundException;
-import com.example.quanlybanhang.exception.ValidUserNameEx;
 import com.example.quanlybanhang.model.dto.UserDTO;
 import com.example.quanlybanhang.model.entity.User;
 import com.example.quanlybanhang.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,19 +18,11 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class UserSevice {
+@Slf4j
+public class UserResourceService {
     private final UserRepository userRepository;
 
     private final ModelMapper modelMapper;
-
-    public boolean login(String username, String password) {
-        List<User> users = userRepository.findAll();
-        for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password))
-                return true;
-        }
-        return false;
-    }
 
     // admin get all user(da map thanh usermodel)
     public List<UserDTO> getAllUserModel() {
@@ -50,22 +42,9 @@ public class UserSevice {
     }
 
 
-    public UserDTO getUserById(Long id) {
+    public User getUserById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.equals(Optional.empty())) {
-            throw new NotFoundException("khong ton tai user");
-        } else {
-            User user = userRepository.findById(id).get();
-            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-            return userDTO;
-        }
-    }
-
-    public void createUser(User user) {
-        if (user.getUsername().equals(userRepository.findUserByUsername(user.getUsername()))) {
-            throw new ValidUserNameEx("username da ton tai hoac sai dinh dang");
-        }
-        userRepository.save(user);
+        return optionalUser.get();
     }
 
     public boolean deleteUser(Long id) {

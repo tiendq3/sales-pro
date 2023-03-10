@@ -46,5 +46,8 @@ public class UserController {
         userService.register(login);
     }
 
+    @PatchMapping("/account/setting/change-password")
+    public void changePassword() {
 
+    }
 }

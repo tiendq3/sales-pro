@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
-    private final MyAuthenticationEntryPoint myAuthenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -34,7 +33,9 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
-                .authenticationEntryPoint(myAuthenticationEntryPoint)
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/un-authority")
                 .and()
                 .logout();
         return http.build();

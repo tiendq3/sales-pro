@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +24,10 @@ import java.util.UUID;
 public class FileServiceImpl implements FileService {
     private final FileRepository fileRepository;
 
+    @Override
     public Page<File> getAllFilePaging(int pageNumber, int pageSize, String[] properties, Sort.Direction sort) {
+        log.warn("[SERVICE] - GET ALL FILE REQUEST");
+
         PageRequest pageable;
         if (sort.equals(Sort.Direction.DESC)) {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.DESC, properties);
@@ -36,14 +36,20 @@ public class FileServiceImpl implements FileService {
         return fileRepository.findAll(pageable);
     }
 
+    @Override
     public File getFileById(Long id) {
+        log.warn("[SERVICE] - GET FILE BY ID: " + id);
+
         Optional<File> optionalFile = fileRepository.findById(id);
         if (optionalFile.isEmpty()) throw new NotFoundException("Not found file by " + id);
         return optionalFile.get();
     }
 
     @Transactional
+    @Override
     public void deleteFile(Long id) {
+        log.warn("[SERVICE] - DELETE FILE BY ID: " + id);
+
         Optional<File> optionalFile = fileRepository.findById(id);
         if (optionalFile.isEmpty()) throw new NotFoundException("Not found file by " + id);
         String path = optionalFile.get().getPath();
@@ -53,8 +59,10 @@ public class FileServiceImpl implements FileService {
     }
 
     @Transactional
+    @Override
     public List<File> uploadFile(MultipartFile[] files) {
-        log.warn("UPLOAD FILE");
+        log.warn("[SERVICE] - UPLOAD FILE REQUEST: " + Arrays.toString(files));
+
         if (files == null || files.length == 0) throw new RuntimeException("file mustn't null");
         List<File> fileList = new ArrayList<>();
         for (MultipartFile file : files) {

@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductDTO> search(String key, int pageNumber, int sizePage, String[] properties, Sort.Direction sort) {
+        log.warn("[SERVICE] - SEARCH");
         Pageable pageable = PageRequest.of(pageNumber, sizePage, Sort.Direction.ASC, properties);
         if (sort.isDescending()) {
             pageable = PageRequest.of(pageNumber, sizePage, Sort.Direction.DESC, properties);
@@ -38,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO getProductById(Long id) {
+        log.warn("[SERVICE] - GET PRODUCT BY ID");
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) throw new NotFoundException("Not found product by " + id);
         return modelMapper.map(product, ProductDTO.class);
@@ -45,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void insertProduct(ProductDTO productDTO) {
+        log.warn("[SERVICE] - INSERT PRODUCT");
         Product product = modelMapper.map(productDTO, Product.class);
         product.setRate(0d);
         product.setAvailable(false);
@@ -55,6 +58,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProduct(Long id, ProductDTO productDTO) {
+        log.warn("[SERVICE] - UPDATE PRODUCT");
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) throw new NotFoundException("not found product by " + id);
         product.setName(productDTO.getName());
@@ -68,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long[] ids) {
+        log.warn("[SERVICE] - DELETE PRODUCT");
         for (Long id : ids) {
             Product product = productRepository.findById(id).orElse(null);
             if (product == null) throw new NotFoundException("not found product by " + id);

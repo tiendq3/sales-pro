@@ -1,6 +1,5 @@
 package com.example.quanlybanhang.security;
 
-import com.example.quanlybanhang.model.entity.Role;
 import com.example.quanlybanhang.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
@@ -18,12 +17,12 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.example.quanlybanhang.model.entity.User user = userRepository.findUserByUsername(username);
+        com.example.quanlybanhang.model.entity.User user = userRepository.findUserByEmail(username);
         if (user == null) throw new UsernameNotFoundException(username + " does not exist");
 
-        List<String> roles = user.getRoles().stream().map(Role::getName).toList();
+        List<String> roles = user.getRoles().stream().map(r -> r.name).toList();
         return User
-                .withUsername(user.getPhone())
+                .withUsername(user.getEmail())
                 .password(user.getPassword())
                 .roles(roles.toArray(new String[0]))
                 .build();

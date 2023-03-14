@@ -1,13 +1,17 @@
 package com.example.quanlybanhang.model.dto;
 
+import com.example.quanlybanhang.config.AppConstants;
+import com.example.quanlybanhang.model.enums.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
+import java.time.Instant;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,21 +22,24 @@ public class UserDTO {
 
     private String username;
 
-    @NotNull(message = "Password is required")
-    @NotEmpty(message = "Password is required")
-    @Size(min = 4, max = 20, message = "Password must be between 4 and 20 characters")
-    private String password;
-
-    @NotNull(message = "Email is required")
-    @NotEmpty(message = "Email is required")
-    @Email(message = "Please provide a valid email")
+    @Email(message = "Email should be valid")
+    @NotEmpty
     private String email;
 
-    private String lastName;
+    @Pattern(regexp = AppConstants.PHONE_REGEX,
+            message = "Please provide a valid phone number")
+    @Nullable
+    private String phone;
 
-    private String firstName;
+    private String name;
 
+    private String gender;
 
+    private Instant birthday;
+
+    private String avatar;
 
     private String address;
+
+    private Set<ERole> roles;
 }

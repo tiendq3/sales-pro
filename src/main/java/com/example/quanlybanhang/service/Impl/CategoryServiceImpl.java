@@ -10,8 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -21,12 +19,23 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final ModelMapper modelMapper;
 
+    @Override
     public Page<CategoryDTO> getAllCategory() {
         return null;
     }
 
-    public void createCategory(CategoryDTO categoryDTO) {
-        Category category = modelMapper.map(categoryDTO, Category.class);
-        categoryRepository.save(category);
+    @Override
+    public void insertCategory(CategoryDTO categoryDTO) {
+
+    }
+
+    @Override
+    public void updateCategory(Long id, CategoryDTO categoryDTO) {
+
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+
     }
 }

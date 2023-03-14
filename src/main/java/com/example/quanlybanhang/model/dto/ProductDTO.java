@@ -1,6 +1,8 @@
 package com.example.quanlybanhang.model.dto;
 
+import com.example.quanlybanhang.model.entity.Category;
 import com.example.quanlybanhang.model.entity.File;
+import com.example.quanlybanhang.model.entity.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +25,8 @@ public class ProductDTO {
     private Double finalPrice;
 
     private Set<File> files;
+
+    private Category category;
+
+    private Supplier supplier;
 }

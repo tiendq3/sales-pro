@@ -1,13 +1,15 @@
 package com.example.quanlybanhang.model.entity;
 
 import com.example.quanlybanhang.config.AppConstants;
+import com.example.quanlybanhang.model.enums.ERole;
+import com.example.quanlybanhang.model.enums.EStatusAccount;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -26,26 +28,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name", unique = true, nullable = false)
-    private String username;
+    @Email(message = "Email should be valid")
+    @NotEmpty
+    @Column(name = "email", unique = true, length = 50)
+    private String email;
 
     @JsonIgnore
     private String password;
 
-    @NotNull(message = "Email is required")
-    @NotEmpty(message = "Email is required")
-    @Email(message = "Please provide a valid email")
-    private String email;
-
     @Pattern(regexp = AppConstants.PHONE_REGEX,
             message = "Please provide a valid phone number")
+    @Nullable
     private String phone;
 
-    private String lastName;
-
-    @NotNull(message = "Full name is required")
-    @NotEmpty(message = "Full name is required")
-    private String first_name;
+    private String name;
 
     private String gender;
 
@@ -55,18 +51,16 @@ public class User {
 
     private String address;
 
-    private String city;
+    private String activeCode;
 
-    private String country;
-
-    private String active_code;
-
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private EStatusAccount status;
 
     private Timestamp createdAt;
 
     private Timestamp updatedAt;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Role> roles;
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private Set<ERole> roles;
 }

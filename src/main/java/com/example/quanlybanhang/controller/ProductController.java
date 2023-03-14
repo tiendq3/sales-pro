@@ -23,7 +23,7 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<Page<ProductDTO>> search(@RequestParam(required = false) String key,
                                                    @RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(defaultValue = "5") int size,
+                                                   @RequestParam(defaultValue = "30") int size,
                                                    @RequestParam(defaultValue = "name") String[] properties,
                                                    @RequestParam(defaultValue = "ASC") Sort.Direction sort) {
         log.warn("[CONTROLLER] - SEARCH REQUEST: key = {}, page = {}, size = {}, properties = {}, sort = {}",
@@ -33,7 +33,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity<Page<ProductDTO>> getAll(@RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(defaultValue = "5") int size,
+                                                   @RequestParam(defaultValue = "30") int size,
                                                    @RequestParam(defaultValue = "name") String[] properties,
                                                    @RequestParam(defaultValue = "ASC") Sort.Direction sort) {
         log.warn("[CONTROLLER] - GET ALL PRODUCT REQUEST");

@@ -1,7 +1,7 @@
 package com.example.quanlybanhang.controller;
 
 import com.example.quanlybanhang.model.dto.CategoryDTO;
-import com.example.quanlybanhang.service.Impl.CategoryServiceImpl;
+import com.example.quanlybanhang.service.CategoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @Slf4j
 public class CategoryController {
-    private final CategoryServiceImpl categoryServiceImpl;
+    private final CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<Page<CategoryDTO>> getAllCategory() {
-        return ResponseEntity.ok(categoryServiceImpl.getAllCategory());
+        return ResponseEntity.ok(categoryService.getAllCategory());
     }
 
     @PostMapping
     public void insertCategory(@RequestBody CategoryDTO categoryDTO) {
-        categoryServiceImpl.createCategory(categoryDTO);
+        categoryService.insertCategory(categoryDTO);
     }
 }

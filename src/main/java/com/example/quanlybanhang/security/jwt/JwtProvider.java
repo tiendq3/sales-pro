@@ -25,7 +25,7 @@ public class JwtProvider {
 
 
     public JwtProvider() {
-        this.secretKey = "test";
+        this.secretKey = "sales-pro";
     }
 
     public String createToken(Authentication authentication) {

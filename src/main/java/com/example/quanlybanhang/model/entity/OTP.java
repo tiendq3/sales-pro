@@ -3,24 +3,25 @@ package com.example.quanlybanhang.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Set;
+import javax.validation.constraints.Email;
+import java.time.Instant;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "otp")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Role {
+public class OTP {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Email(message = "Email should be valid")
+    private String email;
 
-    private Timestamp createdAt;
+    private String otp;
 
-    private Timestamp updatedAt;
+    private Instant createAt;
 }

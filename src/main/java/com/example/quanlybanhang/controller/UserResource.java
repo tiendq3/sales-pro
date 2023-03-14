@@ -1,26 +1,52 @@
 package com.example.quanlybanhang.controller;
 
-import com.example.quanlybanhang.model.entity.User;
+import com.example.quanlybanhang.model.dto.ProductDTO;
+import com.example.quanlybanhang.model.dto.UserDTO;
+import com.example.quanlybanhang.service.ProductService;
 import com.example.quanlybanhang.service.other.UserResourceService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/management")
 @AllArgsConstructor
 @Slf4j
 public class UserResource {
+
     private final UserResourceService userResourceService;
+    private final ProductService productService;
 
     @GetMapping("/users")
-    public List<User> getAllUsers(@RequestParam(name = "page", defaultValue = "0") int page,
-                                  @RequestParam(name = "size", defaultValue = "3") int size) {
-        return userResourceService.getAllUser(page, size);
+    public ResponseEntity<Page<UserDTO>> getAll(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "20") int size,
+                                                @RequestParam(defaultValue = "name") String[] properties,
+                                                @RequestParam(defaultValue = "ASC") Sort.Direction sort) {
+        log.warn("[CONTROLLER] - GET ALL PRODUCT REQUEST");
+        return ResponseEntity.ok(userResourceService.getAllUser(page, size, properties, sort));
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        log.warn("[CONTROLLER] - GET PRODUCT BY ID: " + id);
+        return ResponseEntity.ok(userResourceService.getUserById(id));
+    }
+
+    @PatchMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        log.warn("[CONTROLLER] - UPDATE PRODUCT: " + userDTO);
+        userResourceService.updateProduct(id, userDTO);
+    }
+
+    @DeleteMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable Long id) {
+        log.warn("[CONTROLLER] - DELETE PRODUCT BY ID: " + id);
+        userResourceService.deleteUser(id);
     }
 }

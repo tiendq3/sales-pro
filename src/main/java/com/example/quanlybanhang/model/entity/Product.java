@@ -22,11 +22,15 @@ public class Product {
 
     private String name;
 
+    private String code;
+
     private String description;
 
     private Double price;
 
     private Double finalPrice;
+
+    private Integer quantity;
 
     private Double rate;
 

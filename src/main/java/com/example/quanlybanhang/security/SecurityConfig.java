@@ -30,12 +30,18 @@ public class SecurityConfig {
                 .antMatchers("/**/management/**").hasAuthority(AuthorityConstants.ADMIN)
                 .antMatchers("/**/register").permitAll()
                 .antMatchers("/**/login").permitAll()
+                .antMatchers("/**/send-otp").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
                 .and()
+                .formLogin()
+                // xác thực thất bại chuyển hướng đến api /login ( bắt đăng nhập lại)
+                .failureUrl("/login")
+                .and()
                 .exceptionHandling()
-                .accessDeniedPage("/un-authority")
+                // k đủ quyền chuyển hướng đến api /un-authority
+                .accessDeniedPage("/**/un-authorities")
                 .and()
                 .logout();
         return http.build();

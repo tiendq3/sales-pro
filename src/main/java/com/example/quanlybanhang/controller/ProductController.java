@@ -54,7 +54,7 @@ public class ProductController {
     }
 
 
-    @PatchMapping("management/products/{id}")
+    @PatchMapping("/management/products/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
         log.warn("[CONTROLLER] - UPDATE PRODUCT: " + productDTO);

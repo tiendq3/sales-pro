@@ -31,6 +31,7 @@ public class SecurityConfig {
                 .antMatchers("/**/register").permitAll()
                 .antMatchers("/**/login").permitAll()
                 .antMatchers("/**/send-otp").permitAll()
+                .antMatchers("/**/orders").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()

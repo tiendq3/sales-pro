@@ -34,6 +34,7 @@ public class User {
     private String email;
 
     @JsonIgnore
+    @NotEmpty
     private String password;
 
     @Pattern(regexp = AppConstants.PHONE_REGEX,

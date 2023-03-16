@@ -22,6 +22,7 @@ public class File {
 
     private String path;
 
+    @Enumerated(EnumType.STRING)
     private EFileType type;
 
     private String ext;

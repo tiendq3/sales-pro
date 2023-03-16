@@ -1,8 +1,6 @@
 package com.example.quanlybanhang.controller;
 
-import com.example.quanlybanhang.model.dto.ProductDTO;
 import com.example.quanlybanhang.model.dto.UserDTO;
-import com.example.quanlybanhang.service.ProductService;
 import com.example.quanlybanhang.service.other.UserResourceService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,40 +11,44 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/management")
+@RequestMapping("/api/v1/management/users")
 @AllArgsConstructor
 @Slf4j
 public class UserResource {
 
     private final UserResourceService userResourceService;
-    private final ProductService productService;
 
-    @GetMapping("/users")
+    @GetMapping("/current")
+    public ResponseEntity<UserDTO> currentUser() {
+        return ResponseEntity.ok(userResourceService.currentUser());
+    }
+
+    @GetMapping()
     public ResponseEntity<Page<UserDTO>> getAll(@RequestParam(defaultValue = "0") int page,
                                                 @RequestParam(defaultValue = "20") int size,
                                                 @RequestParam(defaultValue = "name") String[] properties,
                                                 @RequestParam(defaultValue = "ASC") Sort.Direction sort) {
-        log.warn("[CONTROLLER] - GET ALL PRODUCT REQUEST");
+        log.warn("[CONTROLLER] - GET ALL USER REQUEST");
         return ResponseEntity.ok(userResourceService.getAllUser(page, size, properties, sort));
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        log.warn("[CONTROLLER] - GET PRODUCT BY ID: " + id);
+        log.warn("[CONTROLLER] - GET USER BY ID: " + id);
         return ResponseEntity.ok(userResourceService.getUserById(id));
     }
 
-    @PatchMapping("/users/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        log.warn("[CONTROLLER] - UPDATE PRODUCT: " + userDTO);
+        log.warn("[CONTROLLER] - UPDATE USER: " + userDTO);
         userResourceService.updateProduct(id, userDTO);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long id) {
-        log.warn("[CONTROLLER] - DELETE PRODUCT BY ID: " + id);
+        log.warn("[CONTROLLER] - DELETE USER BY ID: " + id);
         userResourceService.deleteUser(id);
     }
 }

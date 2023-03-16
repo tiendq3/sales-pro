@@ -3,6 +3,8 @@ package com.example.quanlybanhang.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Set;
@@ -20,14 +22,17 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     private String name;
 
     private String code;
 
     private String description;
 
+    @NotNull
     private Double price;
 
+    @NotNull
     private Double finalPrice;
 
     private Integer quantity;

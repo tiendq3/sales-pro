@@ -20,6 +20,8 @@ public class ProductDTO {
 
     private String description;
 
+    private Integer quantity;
+
     private Double price;
 
     private Double finalPrice;

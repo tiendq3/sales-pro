@@ -30,6 +30,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid Login login) {
+        log.warn("[CONTROLLER] - LOGIN REQUEST: " + login);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 login.getEmail(),
                 login.getPassword()
@@ -45,6 +46,7 @@ public class UserController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody @Valid Register register) {
+        log.warn("[CONTROLLER] - REGISTER REQUEST: " + register);
         userService.register(register);
     }
 

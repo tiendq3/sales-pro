@@ -1,5 +1,6 @@
 package com.example.quanlybanhang.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -22,5 +23,9 @@ public class Supplier {
 
     private String description;
 
+    @JsonIgnore
+    private String phone;
+
+    @JsonIgnore
     private String address;
 }

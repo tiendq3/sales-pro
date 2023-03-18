@@ -20,6 +20,7 @@ public class UserResource {
 
     @GetMapping("/current")
     public ResponseEntity<UserDTO> currentUser() {
+        log.warn("[CONTROLLER] - GET CURRENT USER: " + userResourceService.currentUser());
         return ResponseEntity.ok(userResourceService.currentUser());
     }
 

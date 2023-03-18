@@ -1,5 +1,6 @@
 package com.example.quanlybanhang.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Product {
     private String description;
 
     @NotNull
+    @JsonIgnore
     private Double price;
 
     @NotNull
@@ -55,4 +57,7 @@ public class Product {
 
     @ManyToOne
     private Supplier supplier;
+
+    @ManyToMany
+    private Set<Comment> comments;
 }

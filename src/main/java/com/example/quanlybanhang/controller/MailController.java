@@ -4,7 +4,6 @@ import com.example.quanlybanhang.model.request.Login;
 import com.example.quanlybanhang.service.other.MailService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

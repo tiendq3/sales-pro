@@ -1,20 +1,19 @@
 package com.example.quanlybanhang.service;
 
-import com.example.quanlybanhang.model.dtos.SupplierDTO;
-import com.example.quanlybanhang.model.dtos.VoucherDTO;
+import com.example.quanlybanhang.model.entities.Supplier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface SupplierService {
+    Page<Supplier> getAllSupplier(int page, int size, String[] properties, Sort.Direction sort);
 
-    Page<SupplierDTO> getAllSupplier();
+    Supplier getSupplierById(Long id);
 
-    VoucherDTO getSupplierById(Long id);
+    void insertSupplier(Supplier supplier);
 
-    void insertSupplier(SupplierDTO supplierDTO);
-
-    void updateSupplier(Long id, SupplierDTO supplierDTO);
+    void updateSupplier(Long id, Supplier supplier);
 
     void deleteSupplier(Long id);
 }

@@ -1,7 +1,7 @@
 package com.example.quanlybanhang.service.Impl;
 
 import com.example.quanlybanhang.exception.NotFoundException;
-import com.example.quanlybanhang.model.entity.File;
+import com.example.quanlybanhang.model.entities.File;
 import com.example.quanlybanhang.model.enums.EFileType;
 import com.example.quanlybanhang.repository.FileRepository;
 import com.example.quanlybanhang.service.FileService;

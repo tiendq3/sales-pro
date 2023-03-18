@@ -1,8 +1,8 @@
 package com.example.quanlybanhang.service.Impl;
 
 import com.example.quanlybanhang.exception.NotFoundException;
-import com.example.quanlybanhang.model.dto.ProductDTO;
-import com.example.quanlybanhang.model.entity.Product;
+import com.example.quanlybanhang.model.dtos.ProductDTO;
+import com.example.quanlybanhang.model.entities.Product;
 import com.example.quanlybanhang.repository.ProductRepository;
 import com.example.quanlybanhang.service.ProductService;
 import lombok.AllArgsConstructor;

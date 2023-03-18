@@ -1,6 +1,6 @@
 package com.example.quanlybanhang.repository;
 
-import com.example.quanlybanhang.model.entity.OTP;
+import com.example.quanlybanhang.model.entities.OTP;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

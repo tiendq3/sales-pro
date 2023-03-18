@@ -1,7 +1,7 @@
 package com.example.quanlybanhang.repository;
 
 
-import com.example.quanlybanhang.model.entity.User;
+import com.example.quanlybanhang.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

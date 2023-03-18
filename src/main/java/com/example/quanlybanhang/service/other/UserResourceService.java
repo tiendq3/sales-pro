@@ -1,8 +1,8 @@
 package com.example.quanlybanhang.service.other;
 
 import com.example.quanlybanhang.exception.NotFoundException;
-import com.example.quanlybanhang.model.dto.UserDTO;
-import com.example.quanlybanhang.model.entity.User;
+import com.example.quanlybanhang.model.dtos.UserDTO;
+import com.example.quanlybanhang.model.entities.User;
 import com.example.quanlybanhang.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

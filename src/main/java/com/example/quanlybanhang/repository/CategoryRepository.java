@@ -1,6 +1,6 @@
 package com.example.quanlybanhang.repository;
 
-import com.example.quanlybanhang.model.entity.Category;
+import com.example.quanlybanhang.model.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

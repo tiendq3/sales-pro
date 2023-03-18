@@ -1,4 +1,4 @@
-package com.example.quanlybanhang.model.dto;
+package com.example.quanlybanhang.model.dtos;
 
 import com.example.quanlybanhang.config.AppConstants;
 import com.example.quanlybanhang.model.enums.ERole;

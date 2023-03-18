@@ -1,6 +1,6 @@
 package com.example.quanlybanhang.controller;
 
-import com.example.quanlybanhang.model.dto.ProductDTO;
+import com.example.quanlybanhang.model.dtos.ProductDTO;
 import com.example.quanlybanhang.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

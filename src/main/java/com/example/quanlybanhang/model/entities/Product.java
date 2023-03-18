@@ -1,4 +1,4 @@
-package com.example.quanlybanhang.model.entity;
+package com.example.quanlybanhang.model.entities;
 
 import lombok.*;
 
@@ -39,7 +39,8 @@ public class Product {
 
     private Double rate;
 
-    private Boolean available;
+    @Column(name = "is_available", columnDefinition = "boolean default false")
+    private boolean isAvailable;
 
     private Instant createdAt;
 

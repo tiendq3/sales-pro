@@ -1,8 +1,8 @@
-package com.example.quanlybanhang.model.dto;
+package com.example.quanlybanhang.model.dtos;
 
-import com.example.quanlybanhang.model.entity.Category;
-import com.example.quanlybanhang.model.entity.File;
-import com.example.quanlybanhang.model.entity.Supplier;
+import com.example.quanlybanhang.model.entities.Category;
+import com.example.quanlybanhang.model.entities.File;
+import com.example.quanlybanhang.model.entities.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

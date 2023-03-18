@@ -1,6 +1,6 @@
 package com.example.quanlybanhang.controller;
 
-import com.example.quanlybanhang.model.dto.UserDTO;
+import com.example.quanlybanhang.model.dtos.UserDTO;
 import com.example.quanlybanhang.service.other.UserResourceService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class UserResource {
 
     @GetMapping()
     public ResponseEntity<Page<UserDTO>> getAll(@RequestParam(defaultValue = "0") int page,
-                                                @RequestParam(defaultValue = "20") int size,
+                                                @RequestParam(defaultValue = "30") int size,
                                                 @RequestParam(defaultValue = "name") String[] properties,
                                                 @RequestParam(defaultValue = "ASC") Sort.Direction sort) {
         log.warn("[CONTROLLER] - GET ALL USER REQUEST");

@@ -1,26 +1,25 @@
-package com.example.quanlybanhang.model.entity;
+package com.example.quanlybanhang.model.entities;
 
 import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "suppliers")
+@Table(name = "vouchers")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Supplier {
+public class Voucher {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Value("${spring.secret}")
     private String name;
 
     private String description;
 
-    private String address;
+    private Double voucherValue;
 }

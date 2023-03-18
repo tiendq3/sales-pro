@@ -1,4 +1,4 @@
-package com.example.quanlybanhang.model.entity;
+package com.example.quanlybanhang.model.entities;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Review {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

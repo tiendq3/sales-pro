@@ -1,6 +1,6 @@
 package com.example.quanlybanhang.controller;
 
-import com.example.quanlybanhang.model.entity.File;
+import com.example.quanlybanhang.model.entities.File;
 import com.example.quanlybanhang.service.FileService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;

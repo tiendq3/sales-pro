@@ -1,4 +1,4 @@
-package com.example.quanlybanhang.model.dto;
+package com.example.quanlybanhang.model.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

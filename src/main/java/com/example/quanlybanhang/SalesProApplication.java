@@ -1,6 +1,6 @@
 package com.example.quanlybanhang;
 
-import com.example.quanlybanhang.model.entity.User;
+import com.example.quanlybanhang.model.entities.User;
 import com.example.quanlybanhang.model.enums.ERole;
 import com.example.quanlybanhang.repository.UserRepository;
 import lombok.AllArgsConstructor;

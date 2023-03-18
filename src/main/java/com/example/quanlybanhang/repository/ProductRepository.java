@@ -1,6 +1,6 @@
 package com.example.quanlybanhang.repository;
 
-import com.example.quanlybanhang.model.entity.Product;
+import com.example.quanlybanhang.model.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

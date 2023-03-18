@@ -1,6 +1,6 @@
 package com.example.quanlybanhang.service;
 
-import com.example.quanlybanhang.model.dto.ProductDTO;
+import com.example.quanlybanhang.model.dtos.ProductDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

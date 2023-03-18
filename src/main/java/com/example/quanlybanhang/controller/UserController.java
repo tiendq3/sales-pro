@@ -48,11 +48,6 @@ public class UserController {
         userService.register(register);
     }
 
-    @GetMapping("/un-authorities")
-    public void unAuthorities() {
-        throw new UnAuthorityException("Un Authorities");
-    }
-
     @PatchMapping("/account/setting/change-password")
     public void changePassword() {
 
@@ -61,6 +56,11 @@ public class UserController {
     @PostMapping("/forgot-password")
     public void forgotPassword() {
 
+    }
+
+    @GetMapping("/un-authorities")
+    public void unAuthorities() {
+        throw new UnAuthorityException("Un Authorities");
     }
 
 }

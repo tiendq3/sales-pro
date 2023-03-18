@@ -1,4 +1,4 @@
-package com.example.quanlybanhang.model.entity;
+package com.example.quanlybanhang.model.entities;
 
 import com.example.quanlybanhang.model.enums.EStatusOrder;
 import lombok.*;
@@ -6,8 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -23,11 +23,14 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ElementCollection
-    private Map<Product, Integer> orderItems;
+//    @ManyToMany
+//    private List<OrderItem> orderItems;
 
-    @NotEmpty
-    private Double totalPrice;
+    @ElementCollection
+    private Map<Product, Integer> items;
+
+    @NotNull
+    private Double totalCost;
 
     @NotEmpty
     private String name;

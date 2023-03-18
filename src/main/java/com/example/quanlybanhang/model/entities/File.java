@@ -1,4 +1,4 @@
-package com.example.quanlybanhang.model.entity;
+package com.example.quanlybanhang.model.entities;
 
 import com.example.quanlybanhang.model.enums.EFileType;
 import lombok.*;

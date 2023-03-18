@@ -17,7 +17,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.example.quanlybanhang.model.entity.User user = userRepository.findUserByEmail(username);
+        com.example.quanlybanhang.model.entities.User user = userRepository.findUserByEmail(username);
         if (user == null) throw new UsernameNotFoundException(username + " does not exist");
 
         List<String> roles = user.getRoles().stream().map(r -> r.name).toList();

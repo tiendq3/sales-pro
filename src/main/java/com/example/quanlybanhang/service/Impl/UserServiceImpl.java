@@ -1,8 +1,8 @@
 package com.example.quanlybanhang.service.Impl;
 
 import com.example.quanlybanhang.exception.EmailExistException;
-import com.example.quanlybanhang.model.entity.OTP;
-import com.example.quanlybanhang.model.entity.User;
+import com.example.quanlybanhang.model.entities.OTP;
+import com.example.quanlybanhang.model.entities.User;
 import com.example.quanlybanhang.model.enums.ERole;
 import com.example.quanlybanhang.model.enums.EStatusAccount;
 import com.example.quanlybanhang.model.request.Login;

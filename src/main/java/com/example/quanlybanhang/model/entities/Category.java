@@ -1,18 +1,17 @@
-package com.example.quanlybanhang.model.entity;
+package com.example.quanlybanhang.model.entities;
 
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "vouchers")
+@Table(name = "categories")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Voucher {
-
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,6 +19,4 @@ public class Voucher {
     private String name;
 
     private String description;
-
-    private Double value;
 }

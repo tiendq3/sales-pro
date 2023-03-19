@@ -22,7 +22,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/orders")
+    @GetMapping("/management/orders")
     public ResponseEntity<Page<Order>> getAllOrderByAdmin(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "30") int size,
@@ -52,7 +52,7 @@ public class OrderController {
         orderService.updateOrderByUser(id, orderRequest);
     }
 
-    @PatchMapping("/orders/management/{id}")
+    @PatchMapping("/management/orders/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateOrderByAdmin(@PathVariable Long id, @RequestParam EStatusOrder status) {
         log.warn("[CONTROLLER] - ADMIN UPDATE ORDER: " + id);

@@ -1,11 +1,13 @@
 package com.example.quanlybanhang.controller;
 
 import com.example.quanlybanhang.model.dtos.CommentDTO;
+import com.example.quanlybanhang.security.AuthorityConstants;
 import com.example.quanlybanhang.service.CommentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,21 +26,24 @@ public class CommentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void insertComment(CommentDTO commentDTO) {
+    @PreAuthorize(AuthorityConstants.USER)
+    public void insertComment(@RequestBody CommentDTO commentDTO) {
         log.warn("[CONTROLLER] - INSERT NEW COMMENT: " + commentDTO);
         commentService.insertComment(commentDTO);
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateComment(Long id, CommentDTO commentDTO) {
+    @PreAuthorize(AuthorityConstants.USER)
+    public void updateComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO) {
         log.warn("[CONTROLLER] - UPDATE COMMENT: " + commentDTO);
         commentService.updateComment(id, commentDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteComment(Long id) {
+    @PreAuthorize(AuthorityConstants.USER)
+    public void deleteComment(@PathVariable Long id) {
         log.warn("[CONTROLLER] - DELETE COMMENT BY ID: " + id);
         commentService.deleteComment(id);
     }

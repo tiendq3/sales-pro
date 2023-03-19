@@ -12,40 +12,40 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/api/v1/vouchers")
+@RequestMapping("/api/v1")
 public class VoucherController {
 
     private final VoucherService voucherService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/vouchers/{id}")
     public ResponseEntity<VoucherDTO> getVoucherById(@PathVariable Long id) {
         log.warn("[CONTROLLER] - GET VOUCHER BY ID: " + id);
         return ResponseEntity.ok(voucherService.getVoucherById(id));
     }
 
-    @GetMapping
+    @GetMapping("/vouchers")
     public ResponseEntity<Page<VoucherDTO>> getAllVoucher() {
         log.warn("[CONTROLLER] - GET ALL VOUCHER");
         return ResponseEntity.ok(voucherService.getAllVoucher());
     }
 
-    @PostMapping
+    @PostMapping("/management/vouchers")
     @ResponseStatus(HttpStatus.CREATED)
-    public void insertVoucher(VoucherDTO voucherDTO) {
+    public void insertVoucher(@RequestBody VoucherDTO voucherDTO) {
         log.warn("[CONTROLLER] - INSERT NEW VOUCHER: " + voucherDTO);
         voucherService.insertVoucher(voucherDTO);
     }
 
-    @PatchMapping
+    @PatchMapping("/management/vouchers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateVoucher(Long id, VoucherDTO voucherDTO) {
+    public void updateVoucher(@PathVariable Long id, @RequestBody VoucherDTO voucherDTO) {
         log.warn("[CONTROLLER] - UPDATE VOUCHER: " + voucherDTO);
         voucherService.updateVoucher(id, voucherDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/management/vouchers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteVoucher(Long id) {
+    public void deleteVoucher(@PathVariable Long id) {
         log.warn("[CONTROLLER] - DELETE VOUCHER BY ID:" + id);
         voucherService.deleteVoucher(id);
     }

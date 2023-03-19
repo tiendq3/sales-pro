@@ -49,7 +49,7 @@ public class CategoryController {
 
     @PatchMapping("/management/categories/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCategory(@PathVariable Long id, CategoryDTO categoryDTO) {
+    public void updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
         log.warn("[CONTROLLER] - UPDATE CATEGORY: " + categoryDTO);
         categoryService.updateCategory(id, categoryDTO);
     }

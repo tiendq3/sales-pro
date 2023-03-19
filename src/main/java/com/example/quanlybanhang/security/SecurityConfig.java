@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -33,17 +32,16 @@ public class SecurityConfig {
                 .antMatchers("/**/login").permitAll()
                 .antMatchers("/**/send-otp").permitAll()
                 .antMatchers("/**/orders").permitAll()
+                .antMatchers("/**/products").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
                 .and()
                 .formLogin()
-                // xác thực thất bại chuyển hướng đến api /login ( bắt đăng nhập lại)
                 .failureUrl("/login")
                 .and()
                 .exceptionHandling()
-                // k đủ quyền chuyển hướng đến api /un-authority
                 .accessDeniedPage("/**/un-authorities")
                 .and()
                 .logout();

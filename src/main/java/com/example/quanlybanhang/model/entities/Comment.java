@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "comments")
 @Getter
 @Setter
 @AllArgsConstructor

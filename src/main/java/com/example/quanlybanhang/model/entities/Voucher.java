@@ -3,6 +3,7 @@ package com.example.quanlybanhang.model.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Table(name = "vouchers")
@@ -22,4 +23,8 @@ public class Voucher {
     private String description;
 
     private Double voucherValue;
+
+    private Instant startDay;
+
+    private Instant endDay;
 }

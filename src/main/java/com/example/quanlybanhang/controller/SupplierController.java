@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/api/v1/suppliers")
+@RequestMapping("/api/v1")
 public class SupplierController {
 
     private final SupplierService supplierService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/suppliers/{id}")
     public ResponseEntity<Supplier> getSupplierById(@PathVariable Long id) {
         log.warn("[CONTROLLER] - USER GET ALL CATEGORY");
         return ResponseEntity.ok(supplierService.getSupplierById(id));
     }
 
-    @GetMapping
+    @GetMapping("/suppliers")
     public ResponseEntity<Page<Supplier>> getAllSupplier(@RequestParam(defaultValue = "0") int page,
                                                          @RequestParam(defaultValue = "30") int size,
                                                          @RequestParam(defaultValue = "name") String[] properties,
@@ -33,23 +33,23 @@ public class SupplierController {
         return ResponseEntity.ok(supplierService.getAllSupplier(page, size, properties, sort));
     }
 
-    @PostMapping
+    @PostMapping("/management/suppliers")
     @ResponseStatus(HttpStatus.CREATED)
-    public void insertSupplier(Supplier supplier) {
+    public void insertSupplier(@RequestBody Supplier supplier) {
         log.warn("[CONTROLLER] - INSERT NEW SUPPLIER: " + supplier);
         supplierService.insertSupplier(supplier);
     }
 
-    @PatchMapping
+    @PatchMapping("/management/suppliers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateSupplier(Long id, Supplier supplier) {
+    public void updateSupplier(@PathVariable Long id, @RequestBody Supplier supplier) {
         log.warn("[CONTROLLER] - UPDATE SUPPLIER: " + supplier);
         supplierService.updateSupplier(id, supplier);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/management/suppliers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteSupplier(Long id) {
+    public void deleteSupplier(@PathVariable Long id) {
         log.warn("[CONTROLLER] - DELETE SUPPLIER BY ID: " + id);
         supplierService.deleteSupplier(id);
     }

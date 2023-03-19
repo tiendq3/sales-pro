@@ -1,21 +1,26 @@
 package com.example.quanlybanhang.model.dtos;
 
-import com.example.quanlybanhang.model.entities.Product;
-import com.example.quanlybanhang.model.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDTO {
 
+    @NotEmpty
     private String comment;
 
+    @NotNull
     private Integer rating;
 
-    private User user;
+    @NotNull
+    private UserDTO userDTO;
 
-    private Product product;
+    @NotNull
+    private ProductDTO productDTO;
 }

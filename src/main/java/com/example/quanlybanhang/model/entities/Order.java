@@ -1,6 +1,7 @@
 package com.example.quanlybanhang.model.entities;
 
 import com.example.quanlybanhang.model.enums.EStatusOrder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -47,4 +48,8 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private EStatusOrder statusOrder;
+
+    @ManyToOne
+    @JsonIgnore
+    private User user;
 }

@@ -22,7 +22,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/management/orders")
+    @GetMapping("/orders")
     public ResponseEntity<Page<Order>> getAllOrderByAdmin(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "30") int size,

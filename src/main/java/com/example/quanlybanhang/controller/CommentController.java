@@ -26,7 +26,7 @@ public class CommentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize(AuthorityConstants.USER)
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     public void insertComment(@RequestBody CommentDTO commentDTO) {
         log.warn("[CONTROLLER] - INSERT NEW COMMENT: " + commentDTO);
         commentService.insertComment(commentDTO);

@@ -64,4 +64,8 @@ public class User {
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private Set<ERole> roles;
+
+    @OneToMany
+    @JsonIgnore
+    private Set<Order> orders;
 }

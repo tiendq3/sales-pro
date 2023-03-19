@@ -53,8 +53,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<Order> getAllOrder(int page, int size, String[] properties, Sort.Direction sort) {
+        log.warn("[SERVICE] - GET ALL ORDER");
         Pageable pageable = PageRequest.of(page, size, sort, properties);
-        Authentication authentication = SecurityContextHolder.createEmptyContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // check authentication = null?
         if (authentication == null) throw new UnAuthorityException("Un Authorities");
         String email = authentication.getName();
